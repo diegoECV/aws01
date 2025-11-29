@@ -8,7 +8,7 @@ app = Flask(__name__)
 app.secret_key = 'supersecretkey'  # Cambia esto en producción
 
 # Configuración de la base de datos
-DB_HOST = os.getenv('DB_HOST', 'aws-ges.c506266wsgbx.us-east-1.rds.amazonaws.com')
+DB_HOST = os.getenv('DB_HOST', '3.236.233.253')
 DB_USER = os.getenv('DB_USER', 'root')
 DB_PASSWORD = os.getenv('DB_PASSWORD', 'diego1416')
 DB_NAME = os.getenv('DB_NAME', 'sistema_ventas')
