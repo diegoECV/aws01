@@ -8,8 +8,8 @@
     <link rel="stylesheet" href="/static/css/formulario.css">
 </head>
 <body>
-    <form class="form-box" method="POST">
-        <h2 style="text-align:center;">Registrar Cliente</h2>
+    <form class="form-box" method="POST" action="{% if editar %}/actualizar/{{ cliente.id }}{% else %}/formulario{% endif %}">
+        <h2 style="text-align:center;">{% if editar %}Editar Cliente{% else %}Registrar Cliente{% endif %}</h2>
         {% with messages = get_flashed_messages() %}
           {% if messages %}
             <div class="flash">{{ messages[0] }}</div>
@@ -17,29 +17,29 @@
         {% endwith %}
         <div class="input-group">
             <i class="material-icons">badge</i>
-            <input type="text" name="dni_ruc" placeholder="DNI/RUC" required>
+            <input type="text" name="dni_ruc" placeholder="DNI/RUC" required value="{{ cliente.dni_ruc if cliente else '' }}">
         </div>
         <div class="input-group">
             <i class="material-icons">person</i>
-            <input type="text" name="nombres" placeholder="Nombres y Apellidos" required>
+            <input type="text" name="nombres" placeholder="Nombres y Apellidos" required value="{{ cliente.nombres if cliente else '' }}">
         </div>
         <div class="input-group">
             <i class="material-icons">phone</i>
-            <input type="text" name="telefono" placeholder="Teléfono">
+            <input type="text" name="telefono" placeholder="Teléfono" value="{{ cliente.telefono if cliente else '' }}">
         </div>
         <div class="input-group">
             <i class="material-icons">email</i>
-            <input type="email" name="correo" placeholder="Correo">
+            <input type="email" name="correo" placeholder="Correo" value="{{ cliente.correo if cliente else '' }}">
         </div>
         <div class="input-group">
             <i class="material-icons">home</i>
-            <textarea name="direccion" placeholder="Dirección"></textarea>
+            <textarea name="direccion" placeholder="Dirección">{{ cliente.direccion if cliente else '' }}</textarea>
         </div>
         <div class="input-group">
             <i class="material-icons">toggle_on</i>
-            <input type="number" name="estado" min="0" max="1" value="1" required> <span style="margin-left:8px;">1=Activo, 0=Inactivo</span>
+            <input type="number" name="estado" min="0" max="1" value="{{ cliente.estado if cliente else 1 }}" required> <span style="margin-left:8px;">1=Activo, 0=Inactivo</span>
         </div>
-        <button type="submit">Registrar</button>
+        <button type="submit">{% if editar %}Actualizar{% else %}Registrar{% endif %}</button>
     </form>
 </body>
     <script src="/static/js/formulario.js"></script>

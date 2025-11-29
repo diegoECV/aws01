@@ -96,12 +96,15 @@ def editar(id):
 def actualizar(id):
     if 'user_id' not in session:
         return redirect(url_for('index'))
-    dni_ruc = request.form['dni_ruc']
-    nombres = request.form['nombres']
-    telefono = request.form['telefono']
-    correo = request.form['correo']
-    direccion = request.form['direccion']
+    dni_ruc = request.form.get('dni_ruc')
+    nombres = request.form.get('nombres')
+    telefono = request.form.get('telefono')
+    correo = request.form.get('correo')
+    direccion = request.form.get('direccion')
     estado = request.form.get('estado', 1)
+    if not dni_ruc or not nombres:
+        flash('Faltan campos obligatorios')
+        return redirect(url_for('editar', id=id))
     conn = get_db_connection()
     with conn.cursor() as cursor:
         cursor.execute('''UPDATE clientes SET dni_ruc=%s, nombres=%s, telefono=%s, correo=%s, direccion=%s, estado=%s WHERE id=%s''',
