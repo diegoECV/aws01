@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Tabla de Clientes</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/tabla.css">
+    <link rel="stylesheet" href="/static/css/output.css">
+
+</head>
+<body>
+    <div class="table-box">
+        <form action="{{ url_for('formulario') }}" method="get" style="display:inline;">
+            <button class="add-btn" type="submit"><i class="material-icons">person_add</i> Agregar Cliente</button>
+        </form>
+        <form action="{{ url_for('logout') }}" method="get" style="display:inline;">
+            <button class="logout-btn" type="submit"><i class="material-icons">logout</i> Salir</button>
+        </form>
+        <h2 style="text-align:center;">Clientes Registrados</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>DNI/RUC</th>
+                    <th>Nombres</th>
+                    <th>Teléfono</th>
+                    <th>Correo</th>
+                    <th>Dirección</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for cliente in clientes %}
+                <tr>
+                    <td>{{ cliente.id }}</td>
+                    <td>{{ cliente.dni_ruc }}</td>
+                    <td>{{ cliente.nombres }}</td>
+                    <td>{{ cliente.telefono }}</td>
+                    <td>{{ cliente.correo }}</td>
+                    <td>{{ cliente.direccion }}</td>
+                    <td>{{ 'Activo' if cliente.estado == 1 else 'Inactivo' }}</td>
+                    <td class="actions">
+                        <form action="/editar/{{ cliente.id }}" method="get" style="display:inline;">
+                            <button title="Editar"><i class="material-icons">edit</i></button>
+                        </form>
+                        <form action="/actualizar/{{ cliente.id }}" method="post" style="display:inline;">
+                            <button title="Actualizar"><i class="material-icons">update</i></button>
+                        </form>
+                        <form action="/eliminar/{{ cliente.id }}" method="post" style="display:inline;" onsubmit="return confirm('¿Seguro que deseas eliminar este cliente?');">
+                            <button title="Eliminar"><i class="material-icons">delete</i></button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+    <script src="/static/js/tabla.js"></script>
+    <script src="/static/js/tabla-anim.js"></script>
+</html>

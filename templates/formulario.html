@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulario de Cliente</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/output.css">
+    <link rel="stylesheet" href="/static/css/formulario.css">
+</head>
+<body>
+    <form class="form-box" method="POST">
+        <h2 style="text-align:center;">Registrar Cliente</h2>
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <div class="flash">{{ messages[0] }}</div>
+          {% endif %}
+        {% endwith %}
+        <div class="input-group">
+            <i class="material-icons">badge</i>
+            <input type="text" name="dni_ruc" placeholder="DNI/RUC" required>
+        </div>
+        <div class="input-group">
+            <i class="material-icons">person</i>
+            <input type="text" name="nombres" placeholder="Nombres y Apellidos" required>
+        </div>
+        <div class="input-group">
+            <i class="material-icons">phone</i>
+            <input type="text" name="telefono" placeholder="Teléfono">
+        </div>
+        <div class="input-group">
+            <i class="material-icons">email</i>
+            <input type="email" name="correo" placeholder="Correo">
+        </div>
+        <div class="input-group">
+            <i class="material-icons">home</i>
+            <textarea name="direccion" placeholder="Dirección"></textarea>
+        </div>
+        <div class="input-group">
+            <i class="material-icons">toggle_on</i>
+            <input type="number" name="estado" min="0" max="1" value="1" required> <span style="margin-left:8px;">1=Activo, 0=Inactivo</span>
+        </div>
+        <button type="submit">Registrar</button>
+    </form>
+</body>
+    <script src="/static/js/formulario.js"></script>
+    <script src="/static/js/formulario-anim.js"></script>
+</html>
